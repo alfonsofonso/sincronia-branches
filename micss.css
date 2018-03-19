@@ -1,101 +1,99 @@
-body {
-  background-color: #000000;
+
+#bug {
+  margin:0 auto;
 }
 
-#consola {    /*  input  */
-  top:50%;
-  left:116px;
-  width: 700px;
-  height: 400px;
-  margin: 1px;
-  font-family: monospace;
-  vertical-align: top;
-  outline-width: 0px;
-  border: 0px;
-  border-color: "grey";
-  letter-spacing: 2px;
-  font-size: 40px;
-  vertical-align: text-top;
-
-  position: absolute;
-  color:rgb(0,255,0);
-   background-color: rgba(0,0,0,0)
+#larva{
+  margin:10px;
+  width: 100px;
+  margin:0 auto;
 }
 
-#pantalla {    /*  Big LETTERS  */
-  top:30%;
-  left:1px;
-  width: 1700px;
-  height: 260px;
-  margin: 1px;
-  font-family: monospace;
-  vertical-align: top;
-  text-align: center;
-  outline-width: 0px;
-  border: 0px;
-  letter-spacing: 2px;
-  font-size: 180px;
-  position: absolute;
-  color:rgb(0,255,0);
-  background-color: rgba(0,0,0,0)
+#pista {
+height: 180px;
+width:200px;
+  border-radius: 30px;
 }
 
-#console{  /*  log  */
-  top:10px;
-  left:10px;
-  width: 1600px;
-  height: 450px;
-  margin: 0px;
-  font-family: monospace;
-  vertical-align: top;
-  outline-width: 0;
-  border: 0px;
-  letter-spacing: 2px;
-  font-size: 22px;
-  position: absolute;
-  color:rgb(0,255,0);
-  background-color: rgba(0,0,0,0);
-  white-space: nowrap;
-  resize: none;
-
+#melodica {
+  height: 120px;
+  width:100px;
+  display: none;
+  margin:0 auto;
+  border-radius: 20px;
+}
+#reverb {
+  background-color: #99aabb;
+  display: none;
+    margin:0 auto;
 }
 
-.estrella {
-  background-color: white;
-  width: 30px;
+
+
+#shorter{
   height: 30px;
-  position: absolute;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right:0;
-  margin: auto;
+  width:60px;
+  margin:0 auto;
+  border-radius: 30px 30px 0 0;
+  display: none;
+}
+#longer{
+  height: 100px;
+  width:20px;
+  display: none;
+  border-radius: 0px 0px 30px 30px;
+    margin:0 auto;
 }
 
-#micanvas{
-  top:0;
-  bottom: 0;
-  left: 0;
-  right:0;
-  width:  100%;
-  height: 100%;
-  margin: 0px;
-  position: absolute;
-  background-color: #000000;
+#tronco{
+  width:280px;
+  display: none;
+  margin:0 auto;
+}
+#octave{
+  width:200px;
+}
+#higher{
+  border-radius: 20px 20px 0px 0px;
+}
+#lower{
+    border-radius: 0px 0px 20px 20px;
+}
+#reversa{
+  margin:0 auto;
+
+}
+#delay {
+  background-color: #aabbcc;
 }
 
-div{
-  animation-name: spin;
-
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+#faster{
+  border-radius: 0px 20px 0px 0px;
+}
+#slower{
+  border-radius: 20px 0px 0px 0px;
 }
 
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+
+
+#sine {
+  width:100px;
+  border-radius: 20px;
+}
+#saw {
+
+  width:60px;
+}
+
+
+
+button {
+  width:100px;
+  height:50px;
+
+  user-select: none;
+  border: none;
+  background-color: #5599ff;
+
+  font-size: 1.5em;
 }

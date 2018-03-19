@@ -1,45 +1,83 @@
 <html>
-
 <head>
-<meta charset="UTF-8">
-<title>sincron</title>
-  <link rel="stylesheet" href="micss.css">
+  <meta charset="UTF-8">
+  <title>sincron</title>
+
+  <script src="src/track.core.js"></script>
+  <script src="src/context.js"></script>
+  <script src="src/generators.js"></script>
+  <script src="src/track.api.js"></script>
+  <script src="src/track.events.js"></script>
+  <script src="src/track.effects.chorus.js"></script>
+  <script src="src/track.effects.delay.js"></script>
+  <script src="src/track.effects.distortion.js"></script>
+  <script src="src/track.effects.reverb.js"></script>
+  <script src="src/track.effects.filter.js"></script>
+  <script src="src/track.effects.tremolo.js"></script>
+  <script src="src/track.envelope.js"></script>
+  <script src="src/track.filter.js"></script>
+  <script src="src/track.oscillator.js"></script>
+  <script src="src/track.record.js"></script>
+  <script src="src/track.sampler.js"></script>
+  <script src="src/track.scheduler.js"></script>
+  <script src="src/track.sequencer.js"></script>
+  <script src="src/track.envelope.js"></script>
+  <script src="src/track.envelope.js"></script>
+  <script src="src/vendor/bufferLoader.js"></script>
+  <script src="src/vendor/recorder.js"></script>
+  <script src="src/vendor/recorderWorker.js"></script>
+  <script src="src/vendor/tuna.js"></script>
+
+  <script src="extras.js"></script>
+  <script src="js/midi.js"></script>
+  <script src="forLissajous.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="micss.css">
 </head>
 
-
 <body>
-
-<canvas id="micanvas"></canvas>
-  <input id="consola" type="text" value="type Here" onchange="escribe(this.value)" >
-
-  <textarea rows="4" cols="50" id="console">log</textarea>
-  <textarea id="pantalla"></textarea>
-  <script src="js/Tone.js"></script>
-
-  <!-- NEXT dev versions -->
-  <script src="js/easeljs-NEXT.combined.js"></script>
-  <script src="js/tweenjs-NEXT.combined.js"></script>
-
-  <!-- Last versions -->
-  <!-- <script src="js/easeljs-0.8.2.combined.js"></script>
-  <script src="js/tweenjs-0.6.2.combined.js"></script> -->
+  <div id="bug">
+    <div id="cabeza">
+      <button id="pista" onclick="pista()">new</button>
+      <button id="shorter" onclick="acorta()">shorter</button>
+      <button id="melodica" onclick="v.melodica()">melody</button>
+      <button id="reverb" onclick="reverbera()">reverb</button>
+    </div>
 
 
-  <script src="js/move.js"></script>
-  <script src="midi.js"></script>
-  <script src="chords.js"></script>
-  <script src="percu.js"></script>
-  <script src="sinte.js"></script>
-  <script src="sinte2.js"></script>
-  <script src="delayador.js"></script>
-  <script src="quotes.js"></script>
-  <script src="rayos.js"></script>
-  <script src="planets.js"></script>
-  <script src="visual.js"></script>
-  <script src="visualizer.js"></script>
-  <script src="lalluvia.js"></script>
-  <script src="struct.js"></script>
+    <div id="tronco">
+      <div id="tronco1" class="closed">
+        <div id="espacial"  class="closed">
+            <button id="reversa" onclick="reversa()">invert</button>
 
+          <button id="delay" onclick="delaya()">delay</button>
+        </div>
+
+        <div id="octave">
+          <button id="higher" onclick="sube()">higher</button>
+          <button id="lower" onclick="baja()">lower</button>
+        </div>
+      </div>
+
+      <div id="tronco2">
+        <div id="velocidad">
+          <button id="slower" onclick="frena()">slower</button>
+          <button id="faster" onclick="acelera()">faster</button>
+        </div>
+
+        <div id="wave">
+          <button id="sine" onclick="v.sine()">sine</button>
+          <button id="saw" onclick="v.saw()">saw</button>
+        </div>
+      </div>
+
+    </div>
+
+    <button id="longer" onclick="alarga()">longer</button>
+
+
+
+
+  </div>
 </body>
-
 </html>
