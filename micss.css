@@ -5,8 +5,8 @@ body {
 #consola {    /*  input  */
   top:50%;
   left:116px;
-  width: 200px;
-  height: 100px;
+  width: 700px;
+  height: 400px;
   margin: 1px;
   font-family: monospace;
   vertical-align: top;
@@ -24,9 +24,9 @@ body {
 
 #pantalla {    /*  Big LETTERS  */
   top:30%;
-  left:16px;
+  left:1px;
   width: 1700px;
-  height: 460px;
+  height: 260px;
   margin: 1px;
   font-family: monospace;
   vertical-align: top;
@@ -43,8 +43,8 @@ body {
 #console{  /*  log  */
   top:10px;
   left:10px;
-  width: 206px;
-  height: 150px;
+  width: 1600px;
+  height: 450px;
   margin: 0px;
   font-family: monospace;
   vertical-align: top;

@@ -6,6 +6,7 @@ starLoc=true;--- destello
 meteors=false;---log meteors size
 speed =true; --- bombo line
 displaying= true --- consola verde muestra
+starArp=true= --- arpegios crean estrella
 
 visual(0)-- num visual
 tempo(120)--- poner tempo

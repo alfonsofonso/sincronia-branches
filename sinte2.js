@@ -1,4 +1,4 @@
-//sinte2
+//sinte2 -  releaseAll()
 var sinte2=new Tone.PolySynth(12,Tone.Synth);
 var volSynth2=-30;
 var numOnda2=0;
@@ -129,8 +129,7 @@ relaja2=function(a){
 hold2=function(){
     arrMotive2=arrNotas2.slice();//llena motivo de las notas pulsadas y deja las mismas en arrNotas
     record2(arrMotive2);
-    //arrMotive2=[];
-    //arrNotas2=[];
+    restructArrMotiveLong2();
 }
 
 record2=function(mot){
@@ -141,5 +140,4 @@ record2=function(mot){
     sinte2.triggerAttackRelease(note,longNoteRec2,time);
     ponVisual("r");
   }, mot,subdivision2).start(0);
-  restructArrMotiveLong2()
 }

@@ -193,7 +193,7 @@ function onMIDIMessage(message) {
   }
       //instr.send([data[0],data[1],data[2]])
     //// rojo:0x0f verde: 0x30 ambar:0x13 yellow: 127; verde suave: 0x18...
- //log('MIDI:'+ data[0] + " "+ data[1]+" "+data[2]); // MIDI data [144, 63, 73]
+ log('MIDI:'+data+" "+ data[0] + " "+ data[1]+" "+data[2]); // MIDI data [144, 63, 73]
     //message.target.send( [0x92, 60, 127]);
 }
 

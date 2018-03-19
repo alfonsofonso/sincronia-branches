@@ -1,4 +1,3 @@
-
 var estiraH=10;
 var estiraV=4;
 var altitud=0;
@@ -23,12 +22,12 @@ function spectra(a){
 function estiraHf(a){
   estiraH+=a/10;
   if(estiraH>40){estiraH=40}else if(estiraH<1){estiraH=1}
-  //log("v: "+estiraH)
+  log("h: "+estiraH)
 }
 function estiraVf(a){
   estiraV+=a/10;
   if(estiraV>40){estiraV=40}else if(estiraV<0.1){estiraV=0.1}
-  //log("v: "+estiraV)
+  log("v: "+estiraV)
 }
 
 function altitudf(a){
@@ -85,5 +84,6 @@ function visual(n){
  visualActivo=n;
  if(visualActivo==1){
    draw()
- }else{cancelAnimationFrame(drawVisual)}
+ }else{
+   cancelAnimationFrame(drawVisual)}
 }

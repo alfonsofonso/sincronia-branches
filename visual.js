@@ -1,6 +1,7 @@
 //visual.js
 
 var displaying=true;
+var keys=true;
 var consola=document.getElementById("console");
 var arr=[];
 var amp=0;
@@ -14,19 +15,16 @@ stage.mouseEnabled=false;
 var funVisuals=[];////// visuales
 var visualActivo=0;
 var lines=0;
+var arrTeclas=[];
 
-
-//createjs.Ticker.timingMode = createjs.Ticker.RAF;
-createjs.Ticker.setFPS=20;
+createjs.Ticker.timingMode = createjs.Ticker.RAF;
+createjs.Ticker.setFPS=60;
 createjs.Ticker.addEventListener("tick", tick);
-
 
 
 ponVisual=function(a){
   funVisuals[visualActivo](a);
 }
-
-
 
 escribe=function(t){/// input orders
   log(t);
@@ -34,14 +32,26 @@ escribe=function(t){/// input orders
   i.value="";
   eval(t);
 }
+
 ////// on init
 function initVisual(){
   ajustaCanvas();
   funVisuals=[ponEstrella,spectra,ponPalabra,ponRayo];
   creaPalabras();
+  window.document.onkeypress=function(){
+    if(!keys){return}
+    var n=Math.random()*44+44;
+    tocanota(n,n);
+    arrTeclas.push(n);log("keydown")
+  }
+  window.document.onkeyup=function(){
+    for(var i=0;i<arrTeclas.length;i++){paranota(arrTeclas[i])}
+  }
 }
+
 /////     HELPERS
-function tick(event) {stage.update()}
+function tick(event) {
+  stage.update()}
 
 window.onresize = function(event) {
   ajustaCanvas()
@@ -84,5 +94,7 @@ function getRandomColor() {
 
 function log(args) {
   console.log(args);
+  //console.info(arguments.callee.caller)
   if(displaying){displayData(arguments)}
+
 }

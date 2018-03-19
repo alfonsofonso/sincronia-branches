@@ -1,7 +1,8 @@
 // sinte
 var sinte=new Tone.PolySynth(12,Tone.Synth);
 var volSynth=-30;
-var ondas=["sine", "square", "triangle", "sawtooth","pwm","pulse"];
+var ondas=["sine","sine2","sine4","sine6","sine8", "triangle","triangle4", "square", "sawtooth","sawtooth4","sawtooth6","sawtooth8"];
+
 var numOnda=0;
 var freqSinte=555;
 var portamentoOxygen=0;
@@ -35,8 +36,11 @@ grabacionSeq=new Tone.Sequence(function(time,note){
 
 tocanota=function(a,b){
 	notica=Tone.Frequency(a, "midi").toNote();
-	sinte.triggerAttack(notica,Tone.Transport.now()+0.01,b/254+0.5);
-  console.log("S1: "+notica);
+  var v=Math.round((b/256+0.5)*1000)/1000;
+  //notica=Math.round(notica * 100) / 100;
+	sinte.triggerAttack(notica,Tone.Transport.now()+0.01,v);
+
+  console.log(a+" S1: "+notica+" v: "+v);
 	ponVisual(notica);
   if(arrNotas.indexOf(notica)==-1){ arrNotas.push(notica)};
 }
@@ -79,7 +83,7 @@ tocanotaOxygen=function(d){
   } else if(d[0]==176){
     switch (d[1]) {
       case 5:// C7 knob
-
+        glissa(d[2])
         break;
       case 6:// C8
         //resuenaSinte(d[2]); va mal
@@ -90,15 +94,15 @@ tocanotaOxygen=function(d){
 
         break;
       case 21:// C12 knob
-        cambiaOnda(-1)
+        tuneUp(-1)
         break;
       case 22:  //C13 knob
-        cambiaOnda(1)
+        tuneUp(1)
         break;
 
       default:
+        log("default Oxygen note")
 
-        log("default Oxygen "+d);
     }
 
 	}else if(d[0]==224){
@@ -125,19 +129,7 @@ cambiaOnda=function(a){
   sinte.volume.exponentialRampToValue(volSynth,1);
 }
 
-filtraSinte=function(a){
-  if(a<0){freqSinte-=40}else{freqSinte+=40}
-	//freqSinte+=a*40;
-	if (freqSinte<1) {freqSinte=1}else if(freqSinte>20000){freqSinte=20000}
-  //filtroSinte.frequency.linearRampToValue(freqSinte,0.01)
-	filtroSinte.frequency.value=freqSinte;
-	log("synthF "+filtroSinte.frequency.value+" a= "+a)
-}
-resuenaSinte=function(a){
-  filtroSinte.Q.value+=a;
-  if(filtroSinte.Q.value<0){filtroSinte.Q.value=0}
-  log("synthRes "+filtroSinte.Q.value)
-}
+
 portamenta=function(a){
   if (a==undefined) { portamentoOxygen=0 }
   else { portamentoOxygen=a/12 }
@@ -189,11 +181,30 @@ relaja=function(a){
 	log("SynthRelease "+at)
 }
 
+glissa=function(a){
+  log("glisso: "+a)
+}
+
+filtraSinte=function(a){
+  if(a<0){freqSinte-=40}else{freqSinte+=40}
+	//freqSinte+=a*40;
+	if (freqSinte<1) {freqSinte=1}else if(freqSinte>20000){freqSinte=20000}
+  //filtroSinte.frequency.linearRampToValue(freqSinte,0.01)
+	filtroSinte.frequency.value=freqSinte;
+	log("synthF "+filtroSinte.frequency.value+" a= "+a)
+}
+resuenaSinte=function(a){
+  filtroSinte.Q.value+=a;
+  if(filtroSinte.Q.value<0){filtroSinte.Q.value=0}
+  log("synthRes "+filtroSinte.Q.value)
+}
+
 //
 
 hold=function(){
     arrMotive=arrNotas.slice();//llena motivo de las notas pulsadas y deja las mismas en arrNotas
     record(arrMotive);
+    restructArrMotiveLong()
 }
 
 record=function(mot){
@@ -204,6 +215,4 @@ record=function(mot){
     sinte.triggerAttackRelease(note,longNoteRec,time);
     ponVisual("r");
   }, mot,subdivision).start(0);
-
-  restructArrMotiveLong()
 }

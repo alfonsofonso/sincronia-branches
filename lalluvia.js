@@ -67,24 +67,116 @@ limitSinte.connect(analyser);
 modVol=function(a){
 	if(inst==0){
 		log("afecta a todos");
-	}else if(inst<6){
-
-  	instrumentos[inst-1].volume.value+=a;
-  	if(instrumentos[inst-1].volume.value>0){
+	}else if(inst<4){
+		instrumentos[inst-1].volume.value+=a;
+		if(instrumentos[inst-1].volume.value>0){
 			instrumentos[inst-1].volume.value=0;
-
 		}else if(instrumentos[inst-1].volume.value<-100){
-			instrumentos[inst-1].volume.value=-100}
-
+			instrumentos[inst-1].volume.value=-100
+		}
 		instVols[inst-1]=instrumentos[inst-1].volume.value;
-		log(instrumentos[inst-1]+" "+instVols[inst-1])
+	}else if(inst<6){
+  	instrumentos[inst-1].volume.value+=a;
+  	if(instrumentos[inst-1].volume.value>-20){
+			instrumentos[inst-1].volume.value=-20;
+		}else if(instrumentos[inst-1].volume.value<-100){
+			instrumentos[inst-1].volume.value=-100
+		}
+		instVols[inst-1]=instrumentos[inst-1].volume.value;
+		log("vol "+instrumentos[inst-1]+" "+instVols[inst-1])
 	}else if(inst==6){
 		log("vol menu struct")
 	}else if(inst==7){
 		log("volumen menu visuals")
 	}
 }
-//knob3
+//knob 2
+limita=function(a){
+	switch (inst) {
+		case 0:
+		 	let l=limitador.threshold.value;
+			if(a>0&&l<0){limitador.threshold.linearRampToValue(l+1,0.1)}
+			else if(a<0&&l>-50){limitador.threshold.linearRampToValue(l-1,0.1)}
+			log("limita todo: "+l);
+			break;
+		case 1:
+			if(a>0&&limitBombo.threshold.value<0){limitBombo.threshold.value++}
+			else if(a<0&&limitBombo.threshold.value>-100){limitBombo.threshold.value--}
+			log("limit drum: "+limitBombo.threshold.value);
+			break;
+		case 2:
+			if(a>0&&limitCharles.threshold.value<0){limitCharles.threshold.value++}
+			else if( a<0 && limitCharles.threshold.value>-100){limitCharles.threshold.value--}
+			log("limit charls: "+limitCharles.threshold.value);
+			break;
+		case 3:
+			if(a>0&&limitCaja.threshold.value<0){limitCaja.threshold.value++}
+			else if(a<0&&limitCaja.threshold.value>-100){limitCaja.threshold.value--}
+			log("limit snare: "+limitCaja.threshold.value);
+			break;
+		case 4:
+			if(a>0&&limitSinte.threshold.value<0){limitSinte.threshold.value++}
+			else if(a<0&&limitSinte.threshold.value>-100){limitSinte.threshold.value--}
+			log("limit synth: "+limitSinte.threshold.value);
+			break;
+		case 5:
+			if(a>0&&limitSinte2.threshold.value<0){limitSinte2.threshold.value++}
+			else if(a<0&&limitSinte2.threshold.value>-100){limitSinte2.threshold.value--}
+			log("limit synth2: "+limitSinte2.threshold.value);
+			break;
+		case 6:
+			log("limit structure");
+			break;
+		case 7:
+			log("limit visuals");
+			break;
+		default:
+			log("def limit")
+	}
+}
+
+//knob 3
+mueve=function(a){
+	switch (inst) {
+		case 0:
+			log("mueve todo")
+			break;
+		case 1:
+			if(offsetBombo!=="number"){offsetBombo=Tone.Time(offsetBombo).eval()}
+			offsetBombo+=a/1000;
+			if(offsetBombo<0){offsetBombo=0}else if(offsetBombo>1){offsetBombo=1}
+			log("offsetBombo: "+offsetBombo)
+			break;
+		case 2:
+			if(offsetCharls!=="number"){offsetCharls=Tone.Time(offsetCharls).eval()}
+				offsetCharls+=a/1000;
+				if(offsetCharls<0){offsetCharls=0}else if(offsetCharls>1){offsetCharls=1}
+				log("offsetCharls: "+offsetCharls)
+			break;
+		case 3:
+			if(offsetSnare!=="number"){offsetSnare=Tone.Time(offsetSnare).eval()}
+			offsetSnare+=a/1000;
+			if(offsetSnare<0){offsetSnare=0}else if(offsetSnare>1){offsetSnare=1}
+			log("offsetSnare: "+offsetSnare)
+			break;
+		case 4:
+			log("mueve sinte")
+			break;
+		case 5:
+			log("mueve sinte2")
+			break;
+		case 6:
+			tuneUp(a);tuneUp(a);
+			break;
+		case 7:
+			log("mueve visuals")
+			break;
+		default:
+			log("default Mueve")
+	}
+}
+
+//knob 4
 modFreq=function(a){
 	if(inst==0){
 		log("Pitch afecta a todos");
@@ -110,6 +202,93 @@ modFreq=function(a){
 		log("visualPitch")
 	}
 }
+
+
+
+//knob 5
+attack=function(a){
+	switch (inst) {
+				case 1://voy a poner aqui el charles
+					log("attack "+inst)
+					break;
+				case 4:
+					atackSynth(a);
+					break;
+				case 5:
+					atackSynth2(a)
+					break;
+				case 6:
+					subeybaja(a)
+					break;
+				case 7:
+					log("visual attack")
+					break;
+		default:
+		log("def attack")
+	}
+}
+//knob 6
+decay=function(a){
+	switch (inst) {
+
+		case 4:
+			decae(a);
+				break;
+			case 5:
+				decae2(a);
+				break;
+			case 6:
+				veloLoop(a)
+				break;
+			case 7:
+				estiraHf(a);
+				break;
+		default:
+		log("def decay")
+	}
+}
+//knob 7
+sustain=function(a){
+	switch (inst) {
+		case 4:
+			sosten(a);
+			break;
+		case 5:
+			sosten2(a);
+			break;
+		case 6:
+			duraNotaLoop(a);
+			break;
+		case 7:
+			estiraVf(a);
+			break;
+		default:
+		log("def sustain")
+	}
+}
+//knob 8
+release=function(a){
+	switch (inst) {
+		case 4:
+			relaja(a);
+			break;
+		case 5:
+			relaja2(a);
+			break;
+		case 6:
+			lengthMotive(a)
+			break;
+		case 7:
+			altitudf(a);
+			break;
+		default:
+		log("def release")
+	}
+}
+
+
+
+
 //knob 10
 filtra=function(a){
 	switch (inst) {
@@ -166,170 +345,6 @@ resuena=function(a){
 		default:
 			log("def res")
 	}
-}
-
-//knob 5
-attack=function(a){
-	switch (inst) {
-				case 1://voy a poner aqui el charles
-					log("attack "+inst)
-					break;
-				case 4:
-					atackSynth(a);
-					break;
-				case 5:
-					atackSynth2(a)
-					break;
-				case 6:
-					subeybaja(a)
-					break;
-				case 7:
-					log("visual attack")
-					break;
-		default:
-		log("def attack")
-	}
-}
-decay=function(a){
-	switch (inst) {
-
-		case 4:
-			decae(a);
-				break;
-			case 5:
-				decae2(a);
-				break;
-			case 6:
-				veloLoop(a)
-				break;
-			case 7:
-				estiraHf(a);
-				break;
-		default:
-		log("def decay")
-	}
-}
-sustain=function(a){
-	switch (inst) {
-		case 4:
-			sosten(a);
-			break;
-		case 5:
-			sosten2(a);
-			break;
-		case 6:
-			duraNotaLoop(a);
-			break;
-		case 7:
-			estiraVf(a);
-			break;
-		default:
-		log("def sustain")
-	}
-}
-release=function(a){
-	switch (inst) {
-		case 4:
-			relaja(a);
-			break;
-		case 5:
-			relaja2(a);
-			break;
-		case 6:
-			lengthMotive(a)
-			break;
-		case 7:
-			altitudf(a);
-			break;
-		default:
-		log("def release")
-	}
-}
-
-//knob 4
-mueve=function(a){
-	switch (inst) {
-		case 0:
-			log("mueve todo")
-			break;
-		case 1:
-			if(offsetBombo!=="number"){offsetBombo=Tone.Time(offsetBombo).eval()}
-			offsetBombo+=a/1000;
-			if(offsetBombo<0){offsetBombo=0}else if(offsetBombo>1){offsetBombo=1}
-			log("offsetBombo: "+offsetBombo)
-			break;
-		case 2:
-			if(offsetCharls!=="number"){offsetCharls=Tone.Time(offsetCharls).eval()}
-				offsetCharls+=a/1000;
-				if(offsetCharls<0){offsetCharls=0}else if(offsetCharls>1){offsetCharls=1}
-				log("offsetCharls: "+offsetCharls)
-			break;
-		case 3:
-			if(offsetSnare!=="number"){offsetSnare=Tone.Time(offsetSnare).eval()}
-			offsetSnare+=a/1000;
-			if(offsetSnare<0){offsetSnare=0}else if(offsetSnare>1){offsetSnare=1}
-			log("offsetSnare: "+offsetSnare)
-			break;
-		case 4:
-			log("mueve sinz?")
-			break;
-		case 5:
-			log("mueve sinz 2 ?")
-			break;
-		case 6:
-			log("mueve struckt")
-			break;
-		case 7:
-			log("mueve visuals")
-			break;
-		default:
-			log("default Mueve")
-	}
-}
-//knob 2
-limita=function(a){
-	switch (inst) {
-		case 0:
-		 	let l=limitador.threshold.value;
-			if(a>0&&l<0){limitador.threshold.linearRampToValue(l+1,0.1)}
-			else if(a<0&&l>-50){limitador.threshold.linearRampToValue(l-1,0.1)}
-			log("limita todo: "+l);
-			break;
-		case 1:
-			if(a>0&&limitBombo.threshold.value<0){limitBombo.threshold.value++}
-			else if(a<0&&limitBombo.threshold.value>-100){limitBombo.threshold.value--}
-			log("limit drum: "+limitBombo.threshold.value);
-			break;
-		case 2:
-			if(a>0&&limitCharles.threshold.value<0){limitCharles.threshold.value++}
-			else if( a<0 && limitCharles.threshold.value>-100){limitCharles.threshold.value--}
-			log("limit charls: "+limitCharles.threshold.value);
-			break;
-		case 3:
-			if(a>0&&limitCaja.threshold.value<0){limitCaja.threshold.value++}
-			else if(a<0&&limitCaja.threshold.value>-100){limitCaja.threshold.value--}
-			log("limit snare: "+limitCaja.threshold.value);
-			break;
-		case 4:
-			if(a>0&&limitSinte.threshold.value<0){limitSinte.threshold.value++}
-			else if(a<0&&limitSinte.threshold.value>-100){limitSinte.threshold.value--}
-			log("limit synth: "+limitSinte.threshold.value);
-			break;
-		case 5:
-			if(a>0&&limitSinte2.threshold.value<0){limitSinte2.threshold.value++}
-			else if(a<0&&limitSinte2.threshold.value>-100){limitSinte2.threshold.value--}
-			log("limit synth2: "+limitSinte2.threshold.value);
-			break;
-		case 6:
-			log("limit structure");
-			break;
-		case 7:
-			log("limit visuals");
-			break;
-		default:
-			log("def limit")
-	}
-
 }
 //continues at delayador.js
 

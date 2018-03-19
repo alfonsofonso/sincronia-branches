@@ -63,7 +63,7 @@ var caj=new Tone.Loop(cajea,bucleCaja).start(0.004);
 pithBendArturia=function(d){
 	var t=instLoops[inst-1];
 	if(inst>3||inst==0){t= instLoops[0]}//afecta al bombo si no es hh o snare
-	log("resolution "+t.interval+ " "+d)
+
 	if(d==64){
 		t.interval="4n";
 	}else if(d<64){
@@ -75,10 +75,9 @@ pithBendArturia=function(d){
 }
 
 pithBendOxygen=function(d){
-	log("pitchbendoosxigben")
 	var t=instLoops[inst-1];
-	if(inst==3){t= instLoops[0]}//afecta al bombo si no es hh o snare
-
+	if(inst==3||inst==0){t=instLoops[0]}//afecta al bombo si no es hh o snare
+	log(d+" "+t+" e")
 	if(d==64){
 		t.interval="4n";
 	}else if(d<64){

@@ -1,0 +1,7 @@
+function ojeteGlobal(initObj) {
+  // Variable declarations
+
+  var a,
+      b;
+
+}

@@ -1,7 +1,8 @@
 //planets
 var meteors=false;//display meteors log
-var speed=true;
+var speed=false;
 var starLoc=false;
+var starArp=false;
 var velSpacial=12000;
 var percVel=300;
 var noteVel=1000;
@@ -16,12 +17,16 @@ ponEstrella=function(a){// es un circulo-planta-cuadrado-nave
   var equis=(radius/(2 + Math.random()*20) )* Math.cos(ang) + amp/2;
   var igriega=(radius/(2 + Math.random()*20) ) * Math.abs(Math.sin(ang)) + alt/2;
 
-  if(a=="b"||a=="c"||a=="s"){//}||a=="z"){//
-    ponNave(a);return }
-  else{
+  if(a==="b"||a==="c"||a==="s"){//}||a=="z"){//
+    ponNave(a);
+    return;
+  }else{
     vel=velSpacial;
-    if (a!="r") {creaDestello(equis,igriega)}
-    if (quoteNote){ponPalabra(a)}
+    if (a!="r") {creaDestello(equis,igriega)
+      if(quoteNote){ponPalabra(a)}
+    }else{
+      if(!starArp){return}
+    }
   }
 
   var c = new createjs.Shape();
@@ -29,7 +34,6 @@ ponEstrella=function(a){// es un circulo-planta-cuadrado-nave
   c.x = equis
   c.y = igriega;
   stage.addChild(c);
-
   var tamanyo=Math.random()*radioCircleFinal;
   createjs.Tween.get(c)
     .to({ x:radius * Math.cos(ang)+amp/2,y:radius*Math.sin(ang)+alt/2,
@@ -42,24 +46,23 @@ ponNave=function(a){ // rectangulos y cuadrados
   var square = new createjs.Shape();
   ang= Math.random()*360;
   var dest=0;
-  if(a=="b"){//bombo
-    if(instVols[0]<-50||speed==false){return}
+  if(a==="b"){//bombo
+    if(instVols[0]<-50){return}
+    if (quoteBomb){ponPalabra(a)}
+    if(speed==false){return}
     dest=alt;
     square.graphics.beginFill("green").drawRect(-1500, 0, 3000,2)// x y width height
-    if (quoteBomb){ponPalabra(a)}
-  }else if(a=="c"){//charles
-
+  }else if(a==="c"){//charles
     if(instVols[1]<-50){return}
     dest=-24;
     square.graphics.beginFill("grey").drawRect(-5, -5, 10,10);
     square.rotation=45;
-    if (quoteHH){ponPalabra(a)}
-  }else if(a=="s"){//if(a=="s"){ caja
+    if (quoteHH){ponPalabra(a);log("pongoPalabra en charles")}
+  }else if(a==="s"){//if(a=="s"){ caja
     if(instVols[2]<-50){return}
     dest=alt+24;
     square.graphics.beginFill("white").drawRect(-6, -6, 12,12)
     if (quoteSnare){ponPalabra(a)}
-
   }else{
     log("else ship");
     dest=alt
@@ -114,10 +117,10 @@ function cercaniaPlanetasFinal(a){
 }
 
 function luzPlanetas(a){
-  if(a>0&&gris<256){
-    gris++;
-  }else if (a<0&&gris>1){
-    gris--;
+  if(a>0&&gris<254){
+    gris+=3;
+  }else if (a<0&&gris>2){
+    gris-=3;
   }
   log("#" +gris)
 }

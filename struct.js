@@ -60,6 +60,7 @@ function subeybaja(a){
       arrMotive2[n]=nota;
     }
     record2(arrMotive2)
+    restructArrMotiveLong2();
   }else{// sinte 1
     arrTemp=dameAlturas(arrMotive);
     if(a>0){
@@ -72,7 +73,8 @@ function subeybaja(a){
       nota=cambiaOctava(nota.toString(),-1);
       arrMotive[n]=nota;
     }
-    record(arrMotive)
+    record(arrMotive);
+    restructArrMotiveLong()
   }
 }
 
@@ -80,17 +82,19 @@ function lengthMotive(a){
   if(lastSynth==sinte2){
     if(a<0){
       arrMotive2.pop();
-    }else if(a>0){
+    }else if(a>0&&arrMotive2.length<arrMotiveLong2.length){
         arrMotive2.push(arrMotiveLong2[arrMotive2.length]);
     }
+    log("arrMotive2.length="+arrMotive2.length)
     record2(arrMotive2)
   }
   else{//sinth 1
     if(a<0){
       arrMotive.pop();
-    }else if(a>0){
+    }else if(a>0&&arrMotive.length<arrMotiveLong.length){
       arrMotive.push(arrMotiveLong[arrMotive.length]);
     }
+    log("arrMotive.length="+arrMotive.length)
     record(arrMotive)
   }
 }
@@ -106,7 +110,8 @@ function tuneUp(a){
         arrMotive2[i]=semitoneTrans(arrMotive2[i],true)
       }
     }
-    record2(arrMotive2)
+    record2(arrMotive2);
+    restructArrMotiveLong2();
   }else {
     if(a<0){
       for(var i=0;i<arrMotive.length;i++){
@@ -118,6 +123,7 @@ function tuneUp(a){
       }
     }
     record(arrMotive);
+    restructArrMotiveLong()
   }
 }
 
@@ -168,7 +174,7 @@ function semitoneTrans(n,parriba){
   }else{
     if(index==0){
       no=notasLetras[notasLetras.length-1];
-      octava++;
+      octava--;
     }else{
       no=notasLetras[index-1];
     }
@@ -177,24 +183,24 @@ function semitoneTrans(n,parriba){
 }
 
 function restructArrMotiveLong(){
-  let h=parseInt(arrMotive[0][arrMotive[0].length-1]);
-  //arrMotiveLong=arrMotive;
-  let f=arrMotive.length;
-  log("arrMotive.length: "+f)
-  for(let i=0;i<(8-h);i++){// repite las octavas que queden
-    for(let j=0;j<f;j++){   //repite por cada nota del motvo
+  let o=parseInt(arrMotive[0][arrMotive[0].length-1]);//first octave in motive
+  arrMotiveLong=[];//arrMotive.slice();
+
+  for(let i=0;i<(8-o);i++){// repeat octaves till 8
+    for(let j=0;j<arrMotive.length;j++){   //repeat for each motive note
         let n=cambiaOctava(arrMotive[j],i)
         arrMotiveLong.push(n);
     }
   }
+  log("arrMotive.length: "+arrMotive.length);
 }
 function restructArrMotiveLong2(){
-  let h=parseInt(arrMotive2[0][arrMotive2[0].length-1]);
-  //arrMotiveLong=arrMotive;
-  let f=arrMotive2.length;
-  log("arrMotive2.length: "+f)
-  for(let i=0;i<(8-h);i++){// repite las octavas que queden
-    for(let j=0;j<f;j++){   //repite por cada nota del motvo
+  let o=parseInt(arrMotive2[0][arrMotive2[0].length-1]);
+  arrMotiveLong2=[];
+
+  log("arrMotive2.length: "+arrMotive2.length)
+  for(let i=0;i<(8-o);i++){// repite las octavas que queden
+    for(let j=0;j<arrMotive2.length;j++){   //repite por cada nota del motvo
         let n=cambiaOctava(arrMotive2[j],i)
         arrMotiveLong2.push(n);
     }
