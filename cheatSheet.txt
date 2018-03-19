@@ -1,0 +1,11 @@
+// orders and defaults
+
+dale()--- start
+
+starLoc=true;--- destello
+meteors=false;---log meteors size
+speed =true; --- bombo line
+displaying= true --- consola verde muestra
+
+visual(0)-- num visual
+tempo(120)--- poner tempo
